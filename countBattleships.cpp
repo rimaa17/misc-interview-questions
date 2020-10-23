@@ -43,3 +43,34 @@ public:
         return res;
     }
 };
+//////////////////////////////////////////////////////////////////////////////////////////////////
+//one pass solution:
+class Solution {
+public:
+    int countBattleships(vector<vector<char>>& board) {
+        
+        int n=board.size(),m=n>0?board[0].size():0;
+        if(m==0 || n==0) return 0;
+        int res=0;
+        bool cont=false;
+        for(int row=0;row<n;row++){
+            for(int col=0;col<m;++col){
+           
+                if(cont && (col==0||board[row][col]=='.'))
+                    cont=false;
+                if(!cont && board[row][col]=='X'){
+                    if(col>0){
+                        if(board[row][col-1]=='X') continue;
+                    }
+                    if(row>0){
+                        if(board[row-1][col]=='X') continue;
+                    }
+                    res++;
+                    cont=true;
+                }
+            }
+        }
+       
+        return res;
+    }
+};
